@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
+import { signinAPI } from "../services/sign";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,25 +13,13 @@ export default function Login() {
       username: email,
       password: password,
     };
-
-    await fetch(`${process.env.REACT_APP_API_URL}/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(async (res) => {
-        if (res.status === 200) {
-          alert("로그인 완료");
-        } else {
-          const message = await res.json();
-          alert(message.message);
-        }
-      })
-      .catch((err) => {
-        console.log("err>>", err);
-      });
+    const res = await signinAPI(formData);
+    console.log(res);
+    if (res.status === 200) {
+      alert("로그인 완료");
+    } else {
+      alert(res);
+    }
   };
 
   return (

@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
+import { signupAPI } from "../services/sign";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -36,24 +38,12 @@ export const Signup = () => {
       confirmPassword: confirmPassword,
     };
 
-    await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(async (res) => {
-        if (res.status === 200) {
-          alert("회원가입 완료");
-        } else {
-          const message = await res.json().username[0];
-          alert(message);
-        }
-      })
-      .catch((err) => {
-        console.log("err>>", err);
-      });
+    const res = await signupAPI(formData);
+    if (res.status === 200) {
+      alert("회원가입 완료");
+    } else {
+      alert(res);
+    }
   };
 
   return (
