@@ -47,8 +47,8 @@ export const Signup = () => {
         if (res.status === 200) {
           alert("회원가입 완료");
         } else {
-          const message = await res.json();
-          console.log(message.username[0]);
+          const message = await res.json().username[0];
+          alert(message);
         }
       })
       .catch((err) => {
