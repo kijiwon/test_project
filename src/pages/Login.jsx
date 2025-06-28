@@ -1,10 +1,13 @@
-import axios from "axios";
 import { useState } from "react";
 import { signinAPI } from "../services/sign";
+import { useUserStore } from "../store/user";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { updateUserId } = useUserStore();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,9 +17,11 @@ export default function Login() {
       password: password,
     };
     const res = await signinAPI(formData);
-    console.log(res);
     if (res.status === 200) {
+      updateUserId(email);
+
       alert("로그인 완료");
+      navigate("/");
     } else {
       alert(res);
     }

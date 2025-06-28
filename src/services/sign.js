@@ -24,7 +24,6 @@ export const signinAPI = async (formData) => {
     const payload = JSON.parse(atob(accessToken.split(".")[1]));
     // console.log("payload>>>", payload);
     const tokenExp = new Date(payload.exp * 1000);
-    console.log(tokenExp);
 
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
