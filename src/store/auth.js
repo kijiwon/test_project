@@ -1,13 +1,16 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export const useUserStore = create(
+export const useAuthStore = create(
   persist(
     (set) => ({
       userId: "",
-      userName: "",
+      accessToken: "",
+      tokenExp: "",
       updateUserId: (userId) => set(() => ({ userId: userId })),
-      updateUserName: (userName) => set(() => ({ userName: userName })),
+      updateAccessToken: (accessToken) =>
+        set(() => ({ accessToken: accessToken })),
+      updateTokenExp: (tokenExp) => set(() => ({ tokenExp: tokenExp })),
     }),
     {
       name: "user-storage",

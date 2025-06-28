@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../store/user";
+import { useAuthStore } from "../store/auth";
 
 export default function Home() {
   const navigate = useNavigate();
-  const userId = useUserStore((state) => state.userId);
+  const userId = useAuthStore((state) => state.userId);
 
   return (
     <div>

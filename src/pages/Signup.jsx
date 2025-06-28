@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
-import { signupAPI } from "../services/sign";
+import { signupAPI } from "../apis/auth";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");

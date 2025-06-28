@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { signinAPI } from "../services/sign";
-import { useUserStore } from "../store/user";
+import { signinAPI } from "../apis/auth";
+import { useAuthStore } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { updateUserId } = useUserStore();
+  const { updateUserId } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -19,7 +19,6 @@ export default function Login() {
     const res = await signinAPI(formData);
     if (res.status === 200) {
       updateUserId(email);
-
       alert("로그인 완료");
       navigate("/");
     } else {
