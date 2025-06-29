@@ -20,7 +20,7 @@ export default function Login() {
     if (res.status === 200) {
       updateUserId(email);
       alert("로그인 완료");
-      navigate("/");
+      navigate("/board");
     } else {
       alert(res);
     }

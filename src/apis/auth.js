@@ -5,7 +5,7 @@ import { setCookie } from "./cookie";
 const { updateAccessToken, updateTokenExp } = useAuthStore.getState();
 
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_AUTH_API,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -40,11 +40,7 @@ export const signinAPI = async (formData) => {
 
 export const refreshAPI = async (token) => {
   try {
-    const res = await api.post("/refresh", token, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await api.post("/refresh", token);
 
     const accessToken = await res.data.accessToken;
     const refreshToken = await res.data.refreshToken;

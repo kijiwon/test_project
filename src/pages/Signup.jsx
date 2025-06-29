@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signupAPI } from "../apis/auth";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export const Signup = () => {
   const [isValidatedEmail, setIsValidatedEmail] = useState(true);
   const [isValidatedPassword, setIsValidatedPassword] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const navigate = useNavigate();
 
   // 이메일 유효성 검사
   const checkEmail = (email) => {
@@ -40,6 +42,7 @@ export const Signup = () => {
     const res = await signupAPI(formData);
     if (res.status === 200) {
       alert("회원가입 완료");
+      navigate("/login");
     } else {
       alert(res);
     }
