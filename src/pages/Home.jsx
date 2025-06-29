@@ -8,49 +8,47 @@ import { refreshAPI } from "../apis/auth";
 export default function Home() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isTokenAvailable, setIsTokenAvailable] = useState(false);
   const { userId, accessToken, tokenExp } = useAuthStore();
 
   const checkLogin = async () => {
     const now = new Date();
-    const tokenExpDate = new Date(tokenExp);
+    const refreshToken = getCookie("refreshToken");
 
-    if (tokenExpDate <= now) {
-      console.log("만료됨");
-      setIsTokenAvailable(false);
-      if (getCookie("refreshToken") !== undefined) {
-        const res = await refreshAPI(getCookie("refreshToken"));
-        console.log(res);
+    if (refreshToken !== undefined && accessToken.length > 0) {
+      //로그인 정보 존재
+
+      if (new Date(tokenExp) - new Date(now) - 5000 <= 0) {
+        console.log("토큰요청>>>");
+        if (refreshToken !== undefined) {
+          const res = await refreshAPI({ refreshToken: refreshToken });
+          console.log(res);
+        }
+      } else {
+        setIsLoggedIn(true);
       }
-    } else {
-      setIsTokenAvailable(true);
-    }
-    if (
-      getCookie("refreshToken") !== undefined &&
-      accessToken.length > 0 &&
-      isTokenAvailable
-    ) {
-      setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
   };
 
   useEffect(() => {
-    // console.log("최초 체크");
-    // checkLogin();
-    console.log("현재 시간>>", new Date().getTime());
-    console.log("만료시간>>", new Date(tokenExp).getTime());
-    console.log(
-      "남은 시간>>",
-      new Date(tokenExp).getTime() - new Date().getTime()
-    );
-    // const timer = setInterval(() => {
-    //   console.log("로그인 체크");
-    //   checkLogin();
-    // }, 1000 * 60);
-    // return () => clearInterval(timer);
+    checkLogin();
   }, []);
+
+  useEffect(() => {
+    if (!tokenExp) return;
+    console.log("현재 시간>>", new Date());
+    console.log("만료시간>>", new Date(tokenExp));
+    const tokenTimeout =
+      new Date(tokenExp).getTime() - new Date().getTime() - 5000;
+
+    console.log("남은 시간>>", tokenTimeout);
+    const timer = setTimeout(() => {
+      console.log("----end----");
+      checkLogin();
+    }, tokenTimeout);
+    return () => clearTimeout(timer);
+  }, [tokenExp]);
 
   return (
     <div>
