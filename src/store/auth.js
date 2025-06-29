@@ -7,10 +7,13 @@ export const useAuthStore = create(
       userId: "",
       accessToken: "",
       tokenExp: "",
+      tokenTimeout: null,
       updateUserId: (userId) => set(() => ({ userId: userId })),
       updateAccessToken: (accessToken) =>
         set(() => ({ accessToken: accessToken })),
       updateTokenExp: (tokenExp) => set(() => ({ tokenExp: tokenExp })),
+      updateTokenTimeout: (tokenTimeout) =>
+        set(() => ({ tokenTimeout: tokenTimeout })),
     }),
     {
       name: "user-storage",

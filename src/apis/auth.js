@@ -19,7 +19,8 @@ export const signupAPI = async (formData) => {
 export const signinAPI = async (formData) => {
   try {
     const res = await api.post("/signin", formData);
-    const { updateAccessToken, updateTokenExp } = useAuthStore.getState();
+    const { updateAccessToken, updateTokenExp, updateTokenTimeout } =
+      useAuthStore.getState();
 
     const accessToken = await res.data.accessToken;
     const refreshToken = await res.data.refreshToken;
@@ -27,7 +28,10 @@ export const signinAPI = async (formData) => {
     const payload = JSON.parse(atob(accessToken.split(".")[1]));
     // console.log("payload>>>", payload);
     const tokenExp = new Date(payload.exp * 1000);
+    const tokenTimeout =
+      new Date(tokenExp).getTime() - new Date().getTime() - 5000; // 5초 전
 
+    updateTokenTimeout(tokenTimeout);
     updateAccessToken(accessToken);
     updateTokenExp(tokenExp);
     setCookie("refreshToken", refreshToken, { path: "/" });
@@ -37,12 +41,11 @@ export const signinAPI = async (formData) => {
   }
 };
 
-export const refreshAPI = async () => {
+export const refreshAPI = async (refreshToken) => {
   try {
-    const refreshToken = localStorage.getItem("refreshToken");
     const res = await api.post("/refresh", refreshToken);
-    console.log(res);
+    return res;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
