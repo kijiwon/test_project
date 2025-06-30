@@ -10,6 +10,7 @@ import { Signup } from "./pages/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BoardWrite from "./pages/BoardWrite";
 import BoardLayout from "./layout/BoardLayout";
+import BoardDetail from "./pages/BoardDetail";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,7 +29,7 @@ function App() {
           if (res.status === 200) {
           } else {
             alert("토큰이 만료되었습니다. 다시 로그인해 주세요");
-            window.location.href = "/";
+            window.location.href = "/login";
             return;
           }
         }
@@ -62,9 +63,10 @@ function App() {
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
-        <Route path="board" element={<BoardLayout />}>
+        <Route path="boards" element={<BoardLayout />}>
           <Route index element={<Board />} />
           <Route path="write" element={<BoardWrite />} />
+          <Route path=":id" element={<BoardDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

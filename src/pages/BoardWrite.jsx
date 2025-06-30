@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import { getBoardCategory, postBoardData } from "../apis/boards";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function BoardWrite() {
   const [categories, setCategories] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+
+  const navigate = useNavigate();
 
   const getCategories = async () => {
     const res = await getBoardCategory();
@@ -24,7 +27,14 @@ export default function BoardWrite() {
 
     console.log(formData);
     const res = await postBoardData(formData);
-    console.log(res);
+    if (res.status === 201) {
+      alert("게시 완료!");
+      navigate("/board");
+    }
+  };
+
+  const onClickBack = () => {
+    navigate("/board");
   };
 
   useEffect(() => {
@@ -33,6 +43,7 @@ export default function BoardWrite() {
 
   return (
     <div>
+      <button onClick={onClickBack}>뒤로가기</button>
       <form>
         <label htmlFor="title">제목</label>
         <input

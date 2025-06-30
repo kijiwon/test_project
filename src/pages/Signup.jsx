@@ -42,7 +42,7 @@ export const Signup = () => {
     const res = await signupAPI(formData);
     if (res.status === 200) {
       alert("회원가입 완료");
-      navigate("/login");
+      navigate("/login", { replace: true });
     } else {
       alert(res);
     }

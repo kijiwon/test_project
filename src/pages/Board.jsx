@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getBoardById, getBoardList } from "../apis/boards";
+import { getBoardList } from "../apis/boards";
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +27,7 @@ export default function Board() {
   };
 
   const getBoardDetail = async (id) => {
-    const res = await getBoardById(id);
-    console.log(res);
+    navigate(`/boards/${id}`);
   };
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function Board() {
   return (
     <BoardWrapper>
       <div>
-        <button onClick={() => navigate("/board/write")}>글 작성하기</button>
+        <button onClick={() => navigate("/boards/write")}>글 작성하기</button>
         {boardList.length === 0 ? (
           <p>작성된 글이 없습니다.</p>
         ) : (

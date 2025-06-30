@@ -59,6 +59,7 @@ export const postBoardData = async (formData) => {
 
 export const getBoardById = async (id) => {
   try {
+    console.log(typeof id);
     const res = await api.get(`/boards/${id}`);
     return res;
   } catch (error) {

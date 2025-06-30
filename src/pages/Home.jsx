@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Home({ isLoggedIn }) {
   const navigate = useNavigate();
-  if (isLoggedIn) navigate("/board");
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/boards");
+  }, []);
 
   return (
     <div>
