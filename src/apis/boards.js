@@ -23,10 +23,11 @@ export const getBoardCategory = async () => {
   }
 };
 
-export const getBoardList = async () => {
+export const getBoardList = async (page) => {
   try {
+    if (!page) page = 0;
     const res = await api.get("/boards", {
-      params: { page: 0, size: 10 },
+      params: { page: page, size: 10 },
     });
     return res.data;
   } catch (error) {
