@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { signupAPI } from "../apis/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  InputWrapper,
+  SignInput,
+  SignWrapper,
+  SignButton,
+  ErrorMessage,
+} from "../components/ui/Sign";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -49,67 +56,75 @@ export const Signup = () => {
   };
 
   return (
-    <form>
-      <label htmlFor="email">이메일</label>
-      <input
-        id="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        onBlur={(e) => checkEmail(e.target.value)}
-        required
-      />
-      {!isValidatedEmail && <p>이메일 형식이 아닙니다</p>}
-
-      <label htmlFor="name">이름</label>
-      <input
-        id="name"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-
-      <label htmlFor="password">비밀번호 </label>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-          checkPassword(e.target.value);
-        }}
-        required
-      />
-      {!isValidatedPassword && password.length > 0 && (
-        <p>
-          비밀번호는 8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상을 사용해
-          주세요
-        </p>
-      )}
-
-      <label htmlFor="confirmPassword">비밀번호 확인</label>
-      <input
-        id="confirmPassword"
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => {
-          setConfirmPassword(e.target.value);
-          checkConfirmPassword(e.target.value);
-        }}
-        required
-      />
-      {!isConfirmed && confirmPassword.length > 0 && (
-        <p>비밀번호와 일치하지 않습니다</p>
-      )}
-
-      <button
-        type="submit"
-        disabled={!(isConfirmed && isValidatedPassword)}
-        onClick={handleSignup}
-      >
-        회원가입
-      </button>
-    </form>
+    <SignWrapper>
+      <form>
+        <InputWrapper>
+          <label htmlFor="email">이메일</label>
+          <SignInput
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={(e) => checkEmail(e.target.value)}
+            required
+          />
+        </InputWrapper>
+        {!isValidatedEmail && (
+          <ErrorMessage>이메일 형식이 아닙니다</ErrorMessage>
+        )}
+        <InputWrapper>
+          <label htmlFor="name">이름</label>
+          <SignInput
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <label htmlFor="password">비밀번호 </label>
+          <SignInput
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              checkPassword(e.target.value);
+            }}
+            required
+          />
+        </InputWrapper>
+        {!isValidatedPassword && password.length > 0 && (
+          <ErrorMessage>
+            비밀번호는 8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상을
+            사용해 주세요
+          </ErrorMessage>
+        )}
+        <InputWrapper>
+          <label htmlFor="confirmPassword">비밀번호 확인</label>
+          <SignInput
+            id="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              checkConfirmPassword(e.target.value);
+            }}
+            required
+          />
+        </InputWrapper>{" "}
+        {!isConfirmed && confirmPassword.length > 0 && (
+          <ErrorMessage>비밀번호와 일치하지 않습니다</ErrorMessage>
+        )}
+        <SignButton
+          type="submit"
+          disabled={!(isConfirmed && isValidatedPassword)}
+          onClick={handleSignup}
+        >
+          회원가입
+        </SignButton>
+      </form>
+    </SignWrapper>
   );
 };

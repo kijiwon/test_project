@@ -1,7 +1,6 @@
 import { useAuthStore } from "./store/auth";
 import { getCookie } from "./apis/cookie";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { refreshAPI } from "./apis/auth";
 import Board from "./pages/Board";
 import Home from "./pages/Home";
@@ -12,6 +11,12 @@ import BoardWrite from "./pages/BoardWrite";
 import BoardLayout from "./layout/BoardLayout";
 import BoardDetail from "./pages/BoardDetail";
 import BoardEdit from "./pages/BoardEdit";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,19 +64,21 @@ function App() {
   }, [tokenExp, accessToken]);
 
   return (
-    <BrowserRouter className="App">
-      <Routes>
-        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
-        <Route path="boards" element={<BoardLayout />}>
-          <Route index element={<Board />} />
-          <Route path="write" element={<BoardWrite />} />
-          <Route path=":id" element={<BoardDetail />} />
-          <Route path=":id/edit" element={<BoardEdit />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Wrapper>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="boards" element={<BoardLayout />}>
+            <Route index element={<Board />} />
+            <Route path="write" element={<BoardWrite />} />
+            <Route path=":id" element={<BoardDetail />} />
+            <Route path=":id/edit" element={<BoardEdit />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Wrapper>
   );
 }
 

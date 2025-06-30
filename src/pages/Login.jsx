@@ -2,6 +2,12 @@ import { useState } from "react";
 import { signinAPI } from "../apis/auth";
 import { useAuthStore } from "../store/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  InputWrapper,
+  SignWrapper,
+  SignButton,
+  SignInput,
+} from "../components/ui/Sign";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -27,26 +33,32 @@ export default function Login() {
   };
 
   return (
-    <form>
-      <label htmlFor="email">이메일</label>
-      <input
-        id="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <label htmlFor="password">비밀번호 </label>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit" onClick={handleLogin}>
-        로그인
-      </button>
-    </form>
+    <SignWrapper>
+      <form>
+        <InputWrapper>
+          <label htmlFor="email">이메일</label>
+          <SignInput
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <label htmlFor="password">비밀번호 </label>
+          <SignInput
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </InputWrapper>
+        <SignButton type="submit" onClick={handleLogin}>
+          로그인
+        </SignButton>
+      </form>
+    </SignWrapper>
   );
 }
