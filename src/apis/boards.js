@@ -34,7 +34,7 @@ export const getBoardList = async () => {
   }
 };
 
-export const postBoardData = async (formData) => {
+export const postBoard = async (formData) => {
   try {
     const data = new FormData();
     data.append(
@@ -61,6 +61,38 @@ export const getBoardById = async (id) => {
   try {
     console.log(typeof id);
     const res = await api.get(`/boards/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteBoard = async (id) => {
+  try {
+    const res = await api.delete(`/boards/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const patchBoard = async ({ id, formData }) => {
+  try {
+    const data = new FormData();
+    data.append(
+      "request",
+      new Blob(
+        [
+          JSON.stringify({
+            title: formData.title,
+            content: formData.content,
+            category: formData.category,
+          }),
+        ],
+        { type: "application/json" }
+      )
+    );
+    const res = await api.patch(`/boards/${id}`, data);
     return res;
   } catch (error) {
     return error;

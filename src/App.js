@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BoardWrite from "./pages/BoardWrite";
 import BoardLayout from "./layout/BoardLayout";
 import BoardDetail from "./pages/BoardDetail";
+import BoardEdit from "./pages/BoardEdit";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -67,6 +68,7 @@ function App() {
           <Route index element={<Board />} />
           <Route path="write" element={<BoardWrite />} />
           <Route path=":id" element={<BoardDetail />} />
+          <Route path=":id/edit" element={<BoardEdit />} />
         </Route>
       </Routes>
     </BrowserRouter>

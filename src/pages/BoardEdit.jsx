@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { getBoardCategory, postBoard } from "../apis/boards";
+import { getBoardCategory, patchBoard } from "../apis/boards";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getBoardById } from "../apis/boards";
 
-export default function BoardWrite() {
+export default function BoardEdit() {
+  const { id } = useParams();
   const [categories, setCategories] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -11,11 +13,23 @@ export default function BoardWrite() {
 
   const navigate = useNavigate();
 
+  const getBoardDetail = async (id) => {
+    const res = await getBoardById(id);
+    if (res.status === 200) {
+      console.log(res.data);
+      setTitle(res.data.title);
+      setContent(res.data.content);
+      setCategory(res.data.boardCategory);
+    } else {
+      alert(res.response.data.message);
+      navigate(-1);
+    }
+  };
+
   const getCategories = async () => {
     const res = await getBoardCategory();
     const arr = Object.entries(res);
     setCategories(arr);
-    setCategory(arr[0][0]);
   };
 
   const handleSubmit = async (e) => {
@@ -27,9 +41,9 @@ export default function BoardWrite() {
     };
 
     console.log(formData);
-    const res = await postBoard(formData);
-    if (res.status === 201) {
-      alert("게시 완료!");
+    const res = await patchBoard({ id, formData });
+    if (res.status === 200) {
+      alert("수정 완료!");
       navigate("/boards");
     }
   };
@@ -39,6 +53,7 @@ export default function BoardWrite() {
   };
 
   useEffect(() => {
+    getBoardDetail(id);
     getCategories();
   }, []);
 
@@ -69,7 +84,7 @@ export default function BoardWrite() {
           ))}
         </select>
         <button type="submit" onClick={handleSubmit}>
-          작성하기
+          저장하기
         </button>
       </form>
     </div>
