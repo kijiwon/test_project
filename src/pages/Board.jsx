@@ -10,6 +10,11 @@ import {
   BoardWrapper,
   BoardListWrapper,
   BoardPostButton,
+  BoardList,
+  PostItem,
+  CurrentPageButton,
+  PageButton,
+  PageButtonWrapper,
 } from "../components/ui/BoardMain";
 
 export default function Board() {
@@ -56,27 +61,33 @@ export default function Board() {
         <button onClick={handleLogout}>로그아웃</button>
       </BoardHeader>
       <BoardPostButton onClick={() => navigate("/boards/write")}>
-        글 작성하기
+        ✏️ 글 작성
       </BoardPostButton>
+
       {boardList.length === 0 ? (
         <p>작성된 글이 없습니다.</p>
       ) : (
         <BoardListWrapper>
           <p>{totalPost}개의 포스트</p>
-          {boardList.map((data) => (
-            <button key={data.id} onClick={() => getBoardDetail(data.id)}>
-              <p>{data.title}</p>
-            </button>
-          ))}
-          {Array.from({ length: totalPage }, (_, idx) =>
-            currentPage === idx ? (
-              <button key={idx}>현재 페이지</button>
-            ) : (
-              <button key={idx} onClick={() => onClickPage(idx)}>
-                {idx + 1}
-              </button>
-            )
-          )}
+          <BoardList>
+            {boardList.map((data) => (
+              <PostItem key={data.id} onClick={() => getBoardDetail(data.id)}>
+                <p>[{data.category}]</p>
+                <p>{data.title}</p>
+              </PostItem>
+            ))}
+          </BoardList>
+          <PageButtonWrapper>
+            {Array.from({ length: totalPage }, (_, idx) =>
+              currentPage === idx ? (
+                <CurrentPageButton key={idx}>{idx + 1}</CurrentPageButton>
+              ) : (
+                <PageButton key={idx} onClick={() => onClickPage(idx)}>
+                  {idx + 1}
+                </PageButton>
+              )
+            )}
+          </PageButtonWrapper>
         </BoardListWrapper>
       )}
     </BoardWrapper>
