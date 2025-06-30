@@ -10,7 +10,7 @@ export const SignWrapper = styled.div`
   font-family: "Pretendard-Regular";
 
   > form {
-    width: 80vw;
+    width: 80%;
     padding: 60px 30px 20px;
     display: flex;
     flex-direction: column;
@@ -76,6 +76,7 @@ export const ErrorMessage = styled.p`
   font-size: 12px;
 
   @media screen and (min-width: ${SIZE.mobileMax}) {
-    font-size: 16px;
+    font-size: 14px;
+    margin-top: -20px;
   }
 `;

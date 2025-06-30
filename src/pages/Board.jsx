@@ -24,12 +24,14 @@ export default function Board() {
   const [totalPage, setTotalPage] = useState(0);
   const [totalPost, setTotalPost] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+  const { accessToken } = useAuthStore();
 
   const handleLogout = () => {
     reset();
     removeCookie("refreshToken");
     navigate("/");
     alert("로그아웃 되었습니다.");
+    return;
   };
 
   const getList = async () => {
@@ -52,6 +54,9 @@ export default function Board() {
 
   useEffect(() => {
     getList();
+    if (accessToken.length === 0) {
+      navigate("/");
+    }
   }, []);
 
   return (
