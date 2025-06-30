@@ -1,6 +1,13 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+const initialState = {
+  userId: "",
+  accessToken: "",
+  tokenExp: "",
+  tokenTimeout: null,
+};
+
 export const useAuthStore = create(
   persist(
     (set) => ({
@@ -14,6 +21,9 @@ export const useAuthStore = create(
       updateTokenExp: (tokenExp) => set(() => ({ tokenExp: tokenExp })),
       updateTokenTimeout: (tokenTimeout) =>
         set(() => ({ tokenTimeout: tokenTimeout })),
+      reset: () => {
+        set(initialState);
+      },
     }),
     {
       name: "user-storage",

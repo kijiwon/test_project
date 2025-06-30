@@ -31,7 +31,6 @@ function App() {
           } else {
             alert("토큰이 만료되었습니다. 다시 로그인해 주세요");
             window.location.href = "/login";
-            return;
           }
         }
       }
@@ -39,6 +38,7 @@ function App() {
     } else {
       setIsLoggedIn(false);
     }
+    return;
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!tokenExp) return;
+    if (!tokenExp || !accessToken) return;
     console.log("만료시간>>", new Date(tokenExp));
     const tokenTimeout =
       new Date(tokenExp).getTime() - new Date().getTime() - 5000;
@@ -56,7 +56,7 @@ function App() {
       checkLogin();
     }, tokenTimeout);
     return () => clearTimeout(timer);
-  }, [tokenExp]);
+  }, [tokenExp, accessToken]);
 
   return (
     <BrowserRouter className="App">

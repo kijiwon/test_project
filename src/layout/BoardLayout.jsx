@@ -16,6 +16,7 @@ export default function BoardLayout() {
   return (
     <Layout>
       <h1>Board</h1>
+
       <Outlet />
     </Layout>
   );
