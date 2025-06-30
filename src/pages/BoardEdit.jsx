@@ -23,7 +23,6 @@ export default function BoardEdit() {
   const getBoardDetail = async (id) => {
     const res = await getBoardById(id);
     if (res.status === 200) {
-      console.log(res.data);
       setTitle(res.data.title);
       setContent(res.data.content);
       setCategory(res.data.boardCategory);
@@ -47,7 +46,6 @@ export default function BoardEdit() {
       category,
     };
 
-    console.log(formData);
     const res = await patchBoard({ id, formData });
     if (res.status === 200) {
       alert("수정 완료!");

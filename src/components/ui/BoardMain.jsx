@@ -9,6 +9,7 @@ export const BoardHeader = styled.header`
   align-items: center;
   gap: 16px;
   margin-top: 10px;
+  font-family: "Pretendard-Regular";
 
   > p {
     font-size: 16px;
@@ -18,7 +19,7 @@ export const BoardHeader = styled.header`
     font-size: 16px;
     font-weight: 600;
     padding: 5px 8px;
-
+    font-family: "Pretendard-Regular";
     background-color: ${COLOR.main_blue};
     border: none;
     border-radius: 5px;

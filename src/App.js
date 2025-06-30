@@ -56,7 +56,6 @@ function App() {
     const tokenTimeout =
       new Date(tokenExp).getTime() - new Date().getTime() - 5000;
 
-    console.log("남은 시간>>", tokenTimeout);
     const timer = setTimeout(() => {
       checkLogin();
     }, tokenTimeout);

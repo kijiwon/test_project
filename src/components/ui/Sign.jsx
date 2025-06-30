@@ -74,6 +74,7 @@ export const ErrorMessage = styled.p`
   margin-left: auto;
   margin-top: 5px;
   font-size: 12px;
+  font-family: "Pretendard-Regular";
 
   @media screen and (min-width: ${SIZE.mobileMax}) {
     font-size: 14px;

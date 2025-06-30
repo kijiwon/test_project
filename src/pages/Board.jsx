@@ -36,7 +36,6 @@ export default function Board() {
 
   const getList = async () => {
     const res = await getBoardList();
-    console.log(res);
     setBoardList(res.content);
     setTotalPage(res.totalPages);
     setTotalPost(res.totalElements);

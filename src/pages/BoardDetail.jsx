@@ -22,7 +22,6 @@ export default function BoardDetail() {
     const res = await getBoardById(id);
     if (res.status === 200) {
       setData(res.data);
-      console.log(data);
     } else {
       alert(res.response.data.message);
       navigate(-1);
