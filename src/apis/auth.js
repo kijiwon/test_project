@@ -6,10 +6,7 @@ const { updateAccessToken, updateTokenExp } = useAuthStore.getState();
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_AUTH_API,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
 
 export const signupAPI = async (formData) => {
