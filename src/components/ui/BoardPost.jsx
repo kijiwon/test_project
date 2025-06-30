@@ -7,15 +7,6 @@ export const BoardPostWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  > button:first-child {
-    width: fit-content;
-    padding: 4px;
-    background-color: #fff;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    font-size: 16px;
-  }
   @media screen and (min-width: ${SIZE.mobileMax}) {
     width: 60%;
     margin-top: 10px;
@@ -23,10 +14,6 @@ export const BoardPostWrapper = styled.div`
     justify-content: center;
     align-items: start;
     gap: 20px;
-
-    > button:first-child {
-      font-size: 18px;
-    }
   }
 `;
 

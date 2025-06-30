@@ -8,6 +8,7 @@ import {
   PostInputWrapper,
   PostButton,
 } from "../components/ui/BoardPost";
+import { BackButton } from "../components/BackButton";
 
 export default function BoardWrite() {
   const [categories, setCategories] = useState([]);
@@ -56,7 +57,7 @@ export default function BoardWrite() {
 
   return (
     <BoardPostWrapper>
-      <button onClick={onClickBack}>⬅Back</button>
+      <BackButton onClick={onClickBack}>⬅Back</BackButton>
       <PostFormWrapper>
         <PostInputWrapper>
           <label htmlFor="title">제목</label>

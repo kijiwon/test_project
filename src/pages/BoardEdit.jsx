@@ -9,6 +9,7 @@ import {
   PostInputWrapper,
   PostButton,
 } from "../components/ui/BoardPost";
+import { BackButton } from "../components/BackButton";
 
 export default function BoardEdit() {
   const { id } = useParams();
@@ -50,7 +51,7 @@ export default function BoardEdit() {
     const res = await patchBoard({ id, formData });
     if (res.status === 200) {
       alert("수정 완료!");
-      navigate("/boards");
+      navigate(`/boards/${id}`, { replace: true });
     }
   };
 
@@ -65,7 +66,7 @@ export default function BoardEdit() {
 
   return (
     <BoardPostWrapper>
-      <button onClick={onClickBack}>⬅︎Back</button>
+      <BackButton onClick={onClickBack}>⬅︎Back</BackButton>
       <PostFormWrapper>
         <PostInputWrapper>
           <label htmlFor="title">제목</label>

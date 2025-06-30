@@ -2,6 +2,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { deleteBoard, getBoardById } from "../apis/boards";
 import { useEffect } from "react";
 import { useState } from "react";
+import {
+  PageWrapper,
+  PostDetailWrapper,
+  PostHeader,
+  PostContent,
+  ButtonWrapper,
+  EditButton,
+  DeleteButton,
+} from "../components/ui/BoardPostDetail";
+import { BackButton } from "../components/BackButton";
 
 export default function BoardDetail() {
   const { id } = useParams();
@@ -12,6 +22,7 @@ export default function BoardDetail() {
     const res = await getBoardById(id);
     if (res.status === 200) {
       setData(res.data);
+      console.log(data);
     } else {
       alert(res.response.data.message);
       navigate(-1);
@@ -28,25 +39,33 @@ export default function BoardDetail() {
 
   useEffect(() => {
     getBoardDetail(id);
-    console.log(data);
   }, []);
 
   return (
-    <div>
-      상세페이지
-      <div>
-        {data && (
-          <div>
+    <PageWrapper>
+      <BackButton />
+      {data && (
+        <PostDetailWrapper>
+          <PostHeader>
+            <p>[{data.boardCategory}]</p>
             <p>{data.title}</p>
-            <p>{data.content}</p>
+          </PostHeader>
+
+          <PostContent>
             <p>{data.createdAt.split("T")[0]}</p>
-            <button onClick={() => navigate(`/boards/${data.id}/edit`)}>
+            <p>{data.content}</p>
+          </PostContent>
+
+          <ButtonWrapper>
+            <DeleteButton onClick={() => onClickDelete(data.id)}>
+              삭제
+            </DeleteButton>
+            <EditButton onClick={() => navigate(`/boards/${data.id}/edit`)}>
               수정
-            </button>
-            <button onClick={() => onClickDelete(data.id)}>삭제</button>
-          </div>
-        )}
-      </div>
-    </div>
+            </EditButton>
+          </ButtonWrapper>
+        </PostDetailWrapper>
+      )}
+    </PageWrapper>
   );
 }
