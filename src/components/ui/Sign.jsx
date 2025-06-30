@@ -64,6 +64,7 @@ export const SignButton = styled.button`
   background-color: ${COLOR.main_lightgray};
   color: white;
   font-family: "Pretendard-Regular";
+  cursor: pointer;
   @media screen and (min-width: ${SIZE.mobileMax}) {
   }
 `;

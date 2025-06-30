@@ -32,7 +32,7 @@ const Button = styled.button`
   padding: 26px 0;
   border: none;
   box-shadow: 0px 10px 0px 0px ${COLOR.hover_blue};
-
+  cursor: pointer;
   &:hover {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -40,9 +40,9 @@ const Button = styled.button`
   }
 
   @media screen and (min-width: ${SIZE.mobileMax}) {
-    width: 30%;
+    width: 20%;
     margin-bottom: 10;
-    font-size: 30px;
+    font-size: 28px;
 
     &:hover {
       margin-top: 15px;

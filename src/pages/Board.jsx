@@ -28,8 +28,8 @@ export default function Board() {
   const handleLogout = () => {
     reset();
     removeCookie("refreshToken");
-    alert("로그아웃 되었습니다.");
     navigate("/");
+    alert("로그아웃 되었습니다.");
   };
 
   const getList = async () => {

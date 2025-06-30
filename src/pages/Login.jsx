@@ -22,6 +22,14 @@ export default function Login() {
       username: email,
       password: password,
     };
+    if (email.length === 0) {
+      alert("이메일을 입력해주세요");
+      return;
+    }
+    if (password.length === 0) {
+      alert("비밀번호를 입력해주세요");
+      return;
+    }
     const res = await signinAPI(formData);
     if (res.status === 200) {
       updateUserId(email);
